@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>게시판</title>
+  <style>
+    .post {
+      margin-bottom: 20px;
+    }
+    .post-image {
+      max-width: 200px;
+      max-height: 200px;
+    }
+  </style>
+</head>
+<body>
+  <h1>게시판</h1>
+  <a href="/adjust">게시물 작성</a>
+  {% for post in posts %}
+    <div class="post">
+      <h2>{{ post.title }}</h2>
+      <p>{{ post.content }}</p>
+      <p>평점: {{ post.rating }}</p>
+      {% if post.imageUrl %}
+        <img class="post-image" src="/uploads/{{ post.imageUrl }}" alt="게시물 이미지">
+      {% endif %}
+      <a href="/posts/{{ post.id }}">상세 보기</a> 
+    </div>
+  {% endfor %}
+</body>
+</html>
