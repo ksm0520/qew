@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <title>인증 대기 페이지</title>
+  <style>
+    .post {
+      margin-bottom: 20px;
+    }
+    .post-image {
+      max-width: 200px;
+      max-height: 200px;
+    }
+  </style>
+</head>
+<body>
+  <h1>인증 대기 페이지</h1>
+  <a href="/adjust">게시물 작성</a>
+  {% if waitingPosts.length === 0 %}
+    <p>인증 대기 중인 게시물이 없습니다.</p>
+  {% else %}
+    {% for post in waitingPosts %}
+      <div class="post">
+        <h2>{{ post.title }}</h2>
+        <p>{{ post.content }}</p>
+        {% if post.imageUrl %}
+          <img class="post-image" src="/uploads/{{ post.imageUrl }}" alt="게시물 이미지">
+        {% endif %}
+        <a href="/posts/{{ post.id }}">상세 보기</a>
+        {% if isAdmin or isEmailAuthenticated %}
+          <!-- 인증 대기 페이지에서는 수락과 거절 버튼이 보이지 않도록 설정 -->
+        {% endif %}
+      </div>
+    {% endfor %}
+  {% endif %}
+
+  <a href="/posts">게시판으로 이동</a>
+</body>
+</html>
